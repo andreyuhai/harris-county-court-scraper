@@ -35,6 +35,8 @@ class HarrisCountyCourtScraper
 
       case_index = 0
       num_of_case_elements = @scraper.count_case_elements(response)
+      break if num_of_case_elements.zero?
+
       (1..num_of_case_elements).each do
         response = @scraper.navigate_to_case_details(case_index)
         case_details = @scraper.scrape_case(response)
@@ -51,6 +53,7 @@ class HarrisCountyCourtScraper
   end
 
   def scrape_daily
-
+    today = Date.today.strftime('%-m/%-d/%Y')
+    scrape_between(today, today)
   end
 end
