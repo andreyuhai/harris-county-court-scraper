@@ -3,8 +3,8 @@ require 'mysql2'
 class Database
   attr_reader :client
 
-  def initialize(db_username, db_password, db_name)
-    @client = Mysql2::Client.new(username: db_username, password: db_password, database: db_name)
+  def initialize(db_username, db_password, db_name, host = 'localhost')
+    @client = Mysql2::Client.new(username: db_username, password: db_password, database: db_name, host: host)
   end
 
   # Creates a table for cases
