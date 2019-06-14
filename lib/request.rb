@@ -1,7 +1,12 @@
 module Request
   module Body
     class << self
-      # Returns a request body string for a search request
+      # Creates a request body string for a search request with the given parameters.
+      # @param [String] event_validation
+      # @param [String] view_state
+      # @param [String] date_from
+      # @param [String] date_to
+      # @return [String] request body string
       def create_search_request(event_validation, view_state, date_from, date_to)
         date_from = CGI.escape date_from
         date_to = CGI.escape date_to
@@ -9,12 +14,21 @@ module Request
         "__VIEWSTATE=#{view_state}&__VIEWSTATEENCRYPTED=&__EVENTVALIDATION=#{event_validation}&ctl00%24ContentPlaceHolder1%24txtFrom=#{date_from}&ctl00%24ContentPlaceHolder1%24txtTo=#{date_to}&ctl00%24ContentPlaceHolder1%24btnSearchCase=Search"
       end
 
-      # Returns a request body string for a case detail request
+      # Creates a request body string for a case detail request with the given parameters.
+      # @param [String] event_validation
+      # @param [String] view_state
+      # @param [Integer] case_index
+      # @return [String] request body string
       def create_case_detail_request(event_validation, view_state, case_index)
         "__EVENTTARGET=ctl00%24ContentPlaceHolder1%24ListViewCases%24ctrl#{case_index}%24btnSelect&__VIEWSTATE=#{view_state}&__VIEWSTATEENCRYPTED=&__EVENTVALIDATION=#{event_validation}"
       end
 
-      # Returns a request body string for a next page request
+      # Creates a request body string for a next page request with the given parameters.
+      # @param [String] event_validation
+      # @param [String] view_state
+      # @param [String] date_from
+      # @param [String] date_to
+      # @return [String] request body string
       def create_next_page_request(event_validation, view_state, date_from, date_to)
         date_from = CGI.escape date_from
         date_to = CGI.escape date_to
@@ -26,6 +40,10 @@ module Request
 
   module Header
     class << self
+      # Creates a header for a request with the given parameters.
+      # @param [Integer] content_length
+      # @param [String] referer
+      # @return [Hash] request header
       def create(content_length, referer)
         {
             'Host' => 'www.cclerk.hctx.net',
@@ -42,9 +60,5 @@ module Request
         }
       end
     end
-    # 'Origin' => 'https://www.ewccv.com',
-    # 'X-MicrosoftAjax' => 'Delta=true',
-    # 'X-Requested-With' => 'XMLHttpRequest'
   end
-
 end
