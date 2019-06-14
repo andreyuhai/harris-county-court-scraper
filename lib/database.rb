@@ -8,6 +8,7 @@ class Database
   end
 
   # Creates a table for cases
+  # @param [String] table_name
   def create_case_table(table_name)
     statement = <<-END_SQL.gsub(/\s+/, " ").strip
     CREATE TABLE IF NOT EXISTS #{table_name} (
@@ -30,6 +31,7 @@ class Database
   end
 
   # Creates a table for case activities
+  # @param [String] table_name
   def create_case_activity_table(table_name)
     statement = <<-END_SQL.gsub(/\s+/, " ").strip
     CREATE TABLE IF NOT EXISTS #{table_name} (
@@ -48,6 +50,8 @@ class Database
   end
 
   # Inserts a case into case table
+  # @param [String] table_name
+  # @param [String] case_values
   def insert_case(table_name, case_values)
     statement = <<-END_SQL.gsub(/\s+/, " ").strip
     INSERT INTO #{table_name}(case_number, file_date, type_desc, subtype, case_title, status, judge, court_room, created_by)
@@ -57,6 +61,8 @@ class Database
   end
 
   # Inserts a case activity into case activity table
+  # @param [String] table_name
+  # @param [String] activity_values
   def insert_case_activity(table_name, activity_values)
     statement = <<-END_SQL.gsub(/\s+/, " ").strip
     INSERT INTO #{table_name}(case_number, date, case_activity, comments, created_by)
