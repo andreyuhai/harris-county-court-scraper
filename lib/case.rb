@@ -59,18 +59,29 @@ class Case
     @case_activities = case_activities
   end
 
+  # Checks whether a string consists of only whitespaces.
+  # @param [String] string to check
+  # @return [Boolean]
   def only_whitespace?(string)
     string.match?(/\A[[:space:]]*\z/)
   end
 
+  # Returns a string of all the parameters that is going to be used in an INSERT query to insert a case.
+  # @return [String]
   def case_values
     "#{@case_number}, #{@file_date}, #{@type_desc}, #{@subtype}, #{@case_title}, #{@status}, #{@judge}, #{@court_room}, #{@created_by}"
   end
 
+  # Returns a string of all the parameters that is going to be used in an INSERT query to insert a case detail.
+  # @param [Hash] activity
+  # @return [String]
   def case_activity_values(activity)
     "#{@case_number}, #{activity[:date]}, #{activity[:case_activity]}, #{activity[:comments]}, #{@created_by}"
   end
 
+  # Escapes single quotes in a string to be able to use it in an INSERT query.
+  # @param [String] string
+  # @return [String] single quotes escaped string
   def escape_single_quotes(string)
     string.gsub("'", "\\\\'")
   end
