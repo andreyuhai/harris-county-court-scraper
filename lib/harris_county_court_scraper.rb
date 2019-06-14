@@ -1,7 +1,6 @@
 require_relative 'scraper'
 require_relative 'database'
 require_relative 'case'
-require 'pry'
 
 class HarrisCountyCourtScraper
   attr_accessor :scraper, :db, :case_table_name, :case_activity_table_name, :created_by, :logger
@@ -10,11 +9,12 @@ class HarrisCountyCourtScraper
     db_username = params.fetch(:db_username)
     db_password = params.fetch(:db_password)
     db_name     = params.fetch(:db_name)
+    host        = params.fetch(:host)
     @created_by = params.fetch(:created_by)
     @logger = logger
 
     @scraper = Scraper.new(created_by, @logger)
-    @db = Database.new(db_username, db_password, db_name)
+    @db = Database.new(db_username, db_password, db_name, host)
     @case_table_name = "#{@created_by}_new_harris_county_court_scrape"
     @case_activity_table_name = "#{@created_by}_new_harris_county_court_case_activity_scrape"
     @db.create_case_table(@case_table_name)
